@@ -1,0 +1,57 @@
+{
+    "name": "emei8/vuecmf",
+	"description": "VueCMF是一款完全开源免费的内容管理快速开发框架。采用前后端分离模式搭建，2.0+版本前端使用vue3、Element Plus和TypeScript构建，后端API基于ThinkPHP6开发。可用于快速开发CMS、CRM、WMS、OMS、ERP等管理系统，开发简单、高效易用，极大减少系统的开发周期和研发成本！甚至不用写一行代码使用VueCMF就能设计出功能强大的后台管理系统。",
+    "keywords": [
+        "framework",
+        "thinkphp",
+        "vuecmf"
+    ],
+	"type": "project",
+    "homepage": "http://www.vuecmf.com/",
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "app\\vuecmf\\": "src/",
+			"app\\": "app"
+        },
+		"psr-0": {
+            "": "extend/"
+        }
+    },
+    "authors": [
+        {
+            "name": "emei8",
+            "email": "2278667823@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "topthink/framework": "^6.0.0",
+        "topthink/think-orm": "^2.0",
+        "topthink/think-migration": "^3.0",
+        "casbin/casbin": "^3.16",
+        "topthink/think-multi-app": "^1.0",
+        "casbin/think-authz": "^1.5",
+        "emei8/framework": "^2.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2",
+        "topthink/think-trace":"^1.0"
+    },
+	"config": {
+        "preferred-install": "dist"
+    },
+	"scripts": {
+        "post-autoload-dump": [
+            "@php think service:discover",
+            "@php think vendor:publish"
+        ]
+    },
+	"extra": {
+        "think": {
+            "services": [
+                "app\\vuecmf\\VuecmfService"
+            ]
+        }
+    }
+}
