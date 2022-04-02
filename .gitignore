@@ -1,4 +1,6 @@
 /.idea
 /.vscode
-*.log
 /vendor
+*.log
+.env
+composer.lock

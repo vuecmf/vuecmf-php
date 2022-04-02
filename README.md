@@ -26,12 +26,12 @@ VueCMF开发框架主要有以下功能：
 创建新项目
 
 ~~~
-composer create-project emei8/vuecmf myproject
+composer create-project vuecmf/vuecmf myproject
 ~~~
 
 若在已有基于thinkphp6的项目中安装, 则需执行下面
 ~~~
-composer require emei8/framework
+composer require vuecmf/framework
 
 php think vuecmf:publish
 ~~~
@@ -48,7 +48,7 @@ php think migrate:run
 
 ## 更新框架
 ~~~
-composer update emei8/framework
+composer update vuecmf/framework
 ~~~
 
 
