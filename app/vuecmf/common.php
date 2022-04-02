@@ -2,9 +2,9 @@
 // +----------------------------------------------------------------------
 // | Copyright (c) 2019~2022 http://www.vuecmf.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed ( https://github.com/emei8/vuecmf/blob/master/LICENSE )
+// | Licensed ( https://github.com/vuecmf/framework/blob/main/LICENSE )
 // +----------------------------------------------------------------------
-// | Author: emei8 <2278667823@qq.com>
+// | Author: vuecmf <tulihua2004@126.com>
 // +----------------------------------------------------------------------
 
 /**
@@ -25,7 +25,7 @@ function ajaxSuccess(string $msg = '', $data = [], int $code = 0): \think\respon
 
 /**
  * ajax请求失败返回的数据结构
- * @param object $exception  异常对象
+ * @param object|string $exception  异常对象|异常信息
  * @param int $code          状态码
  * @param array $data        返回的数据
  * @return \think\response\Json
@@ -33,7 +33,12 @@ function ajaxSuccess(string $msg = '', $data = [], int $code = 0): \think\respon
 function ajaxFail($exception, int $code = 1000, array $data = []): \think\response\Json
 {
     $msg = '异常：';
-    $msg .= config('app.show_error_msg') == true ? $exception->getMessage() . ' 在文件' . $exception->getFile() . '中第' . $exception->getLine() . '行': $exception->getMessage();
+
+    if(is_object($exception)){
+        $msg .= config('app.show_error_msg') == true ? $exception->getMessage() . ' 在文件' . $exception->getFile() . '中第' . $exception->getLine() . '行': $exception->getMessage();
+    }else if(is_string($exception)){
+        $msg .= $exception;
+    }
 
     return json([
         'data'  => $data,
