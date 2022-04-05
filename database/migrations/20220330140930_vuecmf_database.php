@@ -357,7 +357,6 @@ class VuecmfDatabase extends Migrator
 
         $data = [
             ['model_id' => 1, 'model_field_id' => 4, 'option_value' => 'template/content/List', 'option_label' => '列表组件'],
-            ['model_id' => 1, 'model_field_id' => 4, 'option_value' => 'template/content/SinglePage', 'option_label' => '单页组件'],
             ['model_id' => 1, 'model_field_id' => 7, 'option_value' => 10, 'option_label' => '内置'],
             ['model_id' => 1, 'model_field_id' => 7, 'option_value' => 20, 'option_label' => '扩展'],
             ['model_id' => 1, 'model_field_id' => 8, 'option_value' => 10, 'option_label' => '是'],
