@@ -156,7 +156,13 @@ function formatTree(array &$tree, $model, int $pid = 0, string $label = 'title',
                 $prefix .= '└─ ';
             }
 
-            $tree[$key] = $prefix . $val;
+            $item = [];
+            $item['id'] = $key;
+            $item['label'] = $prefix . $val;
+            $item['level'] = $level;
+
+            $tree[] = $item;
+
             formatTree($tree, $model, $key, $label, $pid_field, $order_field,$level + 1);
         }
     }
@@ -165,7 +171,15 @@ function formatTree(array &$tree, $model, int $pid = 0, string $label = 'title',
 }
 
 
-function getTreeIdPath(&$id_path, $model, $pid = 0, $pid_field = 'pid')
+/**
+ * 获取目录树的层级路径
+ * @param string $id_path    层级路径
+ * @param object $model      模型实例
+ * @param int $pid           父级ID
+ * @param string $pid_field  父级ID的字段名称
+ * @return mixed|string
+ */
+function getTreeIdPath(string &$id_path, $model, int $pid = 0, string $pid_field = 'pid')
 {
     $pid_val = $model->where('id',$pid)->where('status', 10)->value($pid_field);
 
