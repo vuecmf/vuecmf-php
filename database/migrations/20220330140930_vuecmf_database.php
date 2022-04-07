@@ -787,7 +787,7 @@ class VuecmfDatabase extends Migrator
             ['id' => 2, 'model_id' => 8, 'model_field_id' => 69, 'type' => 'password', 'default_value' => '', 'sort_num' => 2],
             ['id' => 3, 'model_id' => 8, 'model_field_id' => 70, 'type' => 'text', 'default_value' => '', 'sort_num' => 3],
             ['id' => 4, 'model_id' => 8, 'model_field_id' => 71, 'type' => 'text', 'default_value' => '', 'sort_num' => 4],
-            ['id' => 5, 'model_id' => 8, 'model_field_id' => 72, 'type' => 'radio', 'default_value' => '10', 'sort_num' => 5],
+            ['id' => 5, 'model_id' => 8, 'model_field_id' => 72, 'type' => 'radio', 'default_value' => '20', 'sort_num' => 5],
             //roles表
             ['id' => 6, 'model_id' => 11, 'model_field_id' => 96, 'type' => 'text', 'default_value' => '', 'sort_num' => 6],
             ['id' => 7, 'model_id' => 11, 'model_field_id' => 97, 'type' => 'select', 'default_value' => '', 'sort_num' => 7],
