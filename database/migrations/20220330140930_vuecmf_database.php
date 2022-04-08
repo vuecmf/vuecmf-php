@@ -777,7 +777,7 @@ class VuecmfDatabase extends Migrator
             ['id' => 81, 'label' => '删除模型联动设置', 'api_path' => '/vuecmf/model_form_linkage/delete', 'model_id' => 12, 'action_type' => 'delete'],
             ['id' => 82, 'label' => '批量保存模型联动设置', 'api_path' => '/vuecmf/model_form_linkage/saveAll', 'model_id' => 12, 'action_type' => 'save_all'],
 
-            ['id' => 83, 'label' => '文件上传', 'api_path' => '/vuecmf/upload/', 'model_id' => 13, 'action_type' => 'upload'],
+            ['id' => 83, 'label' => '文件上传', 'api_path' => '/vuecmf/upload', 'model_id' => 13, 'action_type' => 'upload'],
         ];
         $this->table('model_action')->insert($data)->save();
 
