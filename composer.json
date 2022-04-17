@@ -17,7 +17,7 @@
         "casbin/casbin": "^3.16",
         "topthink/think-multi-app": "^1.0",
         "casbin/think-authz": "^1.5",
-        "vuecmf/framework": "^2.0"
+        "vuecmf/framework": "^2.0.1"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
