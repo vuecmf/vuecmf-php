@@ -12,6 +12,9 @@ VueCMF开发框架主要有以下功能：
  + 模型配置（字段、索引、动作、表单）
  + 菜单配置
 
+## 使用文档
+
++ [使用手册(http://www.vuecmf.com)](http://www.vuecmf.com/) 
 
 ## 环境要求
 * Apache/Nginx
@@ -52,7 +55,5 @@ composer update vuecmf/framework
 ~~~
 
 
-## 使用文档
 
-+ [使用手册(http://www.vuecmf.com)](http://www.vuecmf.com/) 
 
