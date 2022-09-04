@@ -104,20 +104,22 @@ function makeToken(string $username, string $pwd , string $ip): string
  * @param string $pid_field       父级字段名
  * @param string $search_field    过滤字段名
  * @param string $order_field     排序字段名
+ * @param int $total              总条数
  * @return array
  */
-function getTreeList($model, int $pid, string $keywords, string $pid_field = 'pid', string $search_field = 'title', string $order_field = 'sort_num'): array
+function getTreeList($model, int $pid, string $keywords, string $pid_field = 'pid', string $search_field = 'title', string $order_field = 'sort_num', int &$total = 0): array
 {
     $query = $model->where($pid_field, $pid);
     !empty($keywords) && $query->whereLike($search_field, '%'.$keywords.'%');
     !empty($order_field) && $query->order($order_field);
     $res = $query->select()->toArray();
+    $total += count($res);
     foreach ($res as &$val){
-        $child = getTreeList($model,$val['id'], $keywords, $pid_field, $search_field, $order_field);
+        $child = getTreeList($model,  $val['id'], $keywords, $pid_field, $search_field, $order_field, $total);
         $val[$pid_field] == 0 && $val[$pid_field] = '';
-        !empty($child) && $val['children'] = $child;
+        !empty($child['data']) && $val['children'] = $child['data'];
     }
-    return $res;
+    return ['data' => $res, 'total' => $total];
 }
 
 
@@ -191,4 +193,3 @@ function getTreeIdPath(string &$id_path, $model, int $pid = 0, string $pid_field
 
     return $id_path;
 }
-
