@@ -11,13 +11,14 @@
     "license": "Apache-2.0",
     "require": {
         "php": ">=7.2.5",
-        "topthink/framework": "^6.0.0",
+        "topthink/framework": "^6.1.0",
         "topthink/think-orm": "^2.0",
         "topthink/think-migration": "^3.0",
         "casbin/casbin": "^3.16",
         "topthink/think-multi-app": "^1.0",
         "casbin/think-authz": "^1.5",
-        "vuecmf/framework": "^2.0.4"
+        "vuecmf/framework": "^2.0.6",
+        "topthink/think-filesystem": "^2.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
