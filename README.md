@@ -24,7 +24,7 @@ github https://github.com/vuecmf/vuecmf
 
 gitee  https://gitee.com/emei/vuecmf
 
-#### v2.1.x:
+#### v2.1及更高版本:
 github https://github.com/vuecmf/vuecmf-web
 
 gitee https://gitee.com/emei/vuecmf-web
