@@ -10,7 +10,7 @@ class CreateRulesTable extends Migrator
      *
      * @return void
      */
-    protected function init()
+    public function init()
     {
         $options = $this->getDbConfig();
 
@@ -59,7 +59,7 @@ class CreateRulesTable extends Migrator
 
         $table = config('database.migration_table', 'migrations');
 
-        $dbConfig['default_migration_table'] = $dbConfig['table_prefix'] . $table;
+        $dbConfig['migration_table'] = $dbConfig['table_prefix'] . $table;
 
         return $dbConfig;
     }
