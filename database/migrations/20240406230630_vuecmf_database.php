@@ -72,6 +72,7 @@ class VuecmfDatabase extends Migrator
             ->addColumn('is_fixed', 'integer', ['length' => 255, 'null' => false, 'default' => 20, 'comment' => '默认列表中固定：10=固定，20=不固定'])
             ->addColumn('column_width', 'integer', ['length' => 11, 'null' => false, 'default' => 150, 'comment' => '默认列宽度'])
             ->addColumn('is_filter', 'integer', ['length' => 255, 'null' => false, 'default' => 10, 'comment' => '是否可筛选：10=是，20=否'])
+            ->addColumn('is_code', 'integer', ['length' => 255, 'null' => false, 'default' => 20, 'comment' => '是否显示文本源码，10=是，20=否','after' => 'is_filter'])
             ->addColumn('sort_num', 'integer', ['length' => 11, 'null' => false, 'default' => 0, 'comment' => '排序(小在前)'])
             ->addColumn('status', 'integer', ['length' => 255, 'null' => false, 'default' => 10, 'comment' => '状态：10=开启，20=禁用'])
             ->addIndex(['field_name','model_id'], ['unique' => true])
@@ -139,6 +140,7 @@ class VuecmfDatabase extends Migrator
             ->addColumn('last_login_ip', 'string', ['length' => 24, 'null' => false, 'default' => '', 'comment' => '最后登录IP'])
             ->addColumn('update_time', 'timestamp', ['null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => '更新时间'])
             ->addColumn('token', 'string', ['length' => 255, 'null' => false, 'default' => '', 'comment' => 'api访问token'])
+            ->addColumn('pid', 'integer', ['length' => 11, 'null' => false, 'default' => 0, 'comment' => '父级用户ID'])
             ->addColumn('status', 'integer', ['length' => 255, 'null' => false, 'default' => 10, 'comment' => '状态：10=开启，20=禁用'])
             ->addIndex(['username'], ['unique' => true])
             ->addIndex(['email'], ['unique' => true])
@@ -151,6 +153,8 @@ class VuecmfDatabase extends Migrator
             ->addColumn('type', 'string', ['length' => 32, 'null' => false, 'default' => '', 'comment' => '控件类型'])
             ->addColumn('default_value', 'string', ['length' => 255, 'null' => false, 'default' => '', 'comment' => '控件默认值'])
             ->addColumn('is_disabled', 'integer', ['length' => 255, 'null' => false, 'default' => 20, 'comment' => '表单中是否禁用： 10=是，20=否'])
+            ->addColumn('placeholder', 'string', ['length' => 255, 'null' => false, 'default' => '', 'comment' => '表单提示信息'])
+            ->addColumn('is_edit', 'integer', ['length' => 255, 'null' => false, 'default' => 10, 'comment' => '可编辑：10=是，20=否'])
             ->addColumn('sort_num', 'integer', ['length' => 11, 'null' => false, 'default' => 0, 'comment' => '排序(小在前)'])
             ->addColumn('status', 'integer', ['length' => 255, 'null' => false, 'default' => 10, 'comment' => '状态：10=开启，20=禁用'])
             ->addIndex(['model_field_id'], ['unique' => true])
@@ -336,6 +340,10 @@ class VuecmfDatabase extends Migrator
             ['id' => 244,'field_name' => 'exclusion_url','label' => '排除验证URL','model_id' => 14,'type' => 'varchar','length' => 2000,'decimal_length' => 0,'is_null' => 20,'note' => '排除验证的URL，多个用英文逗号分隔','default_value' => '','is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 10,'is_fixed' => 20,'column_width' => 150,'is_filter' => 10,'sort_num' => 113,'status' => 10,],
             ['id' => 245,'field_name' => 'type','label' => '类型','model_id' => 14,'type' => 'smallint','length' => 4,'decimal_length' => 0,'is_null' => 20,'note' => '类型：10=内置，20=扩展','default_value' => '20','is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 10,'is_fixed' => 20,'column_width' => 150,'is_filter' => 10,'sort_num' => 114,'status' => 10,],
             ['id' => 246,'field_name' => 'status','label' => '状态','model_id' => 14,'type' => 'smallint','length' => 4,'decimal_length' => 0,'is_null' => 20,'note' => '状态：10=开启，20=禁用','default_value' => '10','is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 10,'is_fixed' => 20,'column_width' => 100,'is_filter' => 10,'sort_num' => 115,'status' => 10,],
+            ['id' => 247,'field_name' => 'is_code','label' => '显示源码','model_id' => 3,'type' => 'smallint','length' => 4,'decimal_length' => 0,'is_null' => 20,'note' => '是否显示文本源码，10=是，20=否','default_value' => '20','is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 10,'is_fixed' => 20,'column_width' => 100,'is_filter' => 10,'sort_num' => 34,'status' => 10,],
+            ['id' => 260,'field_name' => 'pid','label' => '父级用户','model_id' => 8,'type' => 'int','length' => 11,'decimal_length' => 0,'is_null' => 20,'note' => '父级用户ID','default_value' => 0,'is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 20,'is_fixed' => 20,'column_width' => 100,'is_filter' => 20,'sort_num' => 0,'status' => 10,],
+            ['id' => 261,'field_name' => 'placeholder','label' => '表单提示','model_id' => 9,'type' => 'varchar','length' => 255,'decimal_length' => 0,'is_null' => 20,'note' => '表单提示信息','default_value' => '','is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 10,'is_fixed' => 20,'column_width' => 150,'is_filter' => 20,'sort_num' => 88,'status' => 10,],
+            ['id' => 262,'field_name' => 'is_edit','label' => '可编辑','model_id' => 9,'type' => 'smallint','length' => 4,'decimal_length' => 0,'is_null' => 20,'note' => '可编辑：10=是，20=否','default_value' => '10','is_auto_increment' => 20,'is_label' => 20,'is_signed' => 20,'is_show' => 10,'is_fixed' => 20,'column_width' => 100,'is_filter' => 10,'sort_num' => 89,'status' => 10,],
         ];
         $this->table('model_field')->insert($data)->save();
 
@@ -422,6 +430,8 @@ class VuecmfDatabase extends Migrator
             ['model_id' => 3,'model_field_id' => 56,'type' => 10,'option_value' => '20','option_label' => '否',],
             ['model_id' => 3,'model_field_id' => 58,'type' => 10,'option_value' => '10','option_label' => '开启',],
             ['model_id' => 3,'model_field_id' => 58,'type' => 10,'option_value' => '20','option_label' => '禁用',],
+            ['model_id' => 3,'model_field_id' => 247,'type' => 10,'option_value' => '10','option_label' => '是',],
+            ['model_id' => 3,'model_field_id' => 247,'type' => 10,'option_value' => '20','option_label' => '否',],
             ['model_id' => 4,'model_field_id' => 61,'type' => 10,'option_value' => '10','option_label' => '内置',],
             ['model_id' => 4,'model_field_id' => 61,'type' => 10,'option_value' => '20','option_label' => '扩展',],
             ['model_id' => 4,'model_field_id' => 66,'type' => 10,'option_value' => '10','option_label' => '开启',],
@@ -591,10 +601,13 @@ class VuecmfDatabase extends Migrator
             ['model_id' => 9,'model_field_id' => 163,'type' => 10,'option_value' => 'upload_file','option_label' => '文件上传',],
             ['model_id' => 9,'model_field_id' => 163,'type' => 10,'option_value' => 'editor','option_label' => '编辑器',],
             ['model_id' => 9,'model_field_id' => 163,'type' => 10,'option_value' => 'hidden','option_label' => '隐藏域',],
+            ['model_id' => 9,'model_field_id' => 163,'type' => 10,'option_value' => 'color_picker','option_label' => '颜色选择器',],
             ['model_id' => 9,'model_field_id' => 165,'type' => 10,'option_value' => '10','option_label' => '是',],
             ['model_id' => 9,'model_field_id' => 165,'type' => 10,'option_value' => '20','option_label' => '否',],
             ['model_id' => 9,'model_field_id' => 167,'type' => 10,'option_value' => '10','option_label' => '开启',],
             ['model_id' => 9,'model_field_id' => 167,'type' => 10,'option_value' => '20','option_label' => '禁用',],
+            ['model_id' => 9,'model_field_id' => 262,'type' => 10,'option_value' => '10','option_label' => '是',],
+            ['model_id' => 9,'model_field_id' => 262,'type' => 10,'option_value' => '20','option_label' => '否',],
             ['model_id' => 10,'model_field_id' => 183,'type' => 10,'option_value' => 'require','option_label' => '必填',],
             ['model_id' => 10,'model_field_id' => 183,'type' => 10,'option_value' => 'number','option_label' => '纯数字(不包负数和小数点)',],
             ['model_id' => 10,'model_field_id' => 183,'type' => 10,'option_value' => 'integer','option_label' => '整数',],
@@ -672,6 +685,7 @@ class VuecmfDatabase extends Migrator
             ['model_id' => 14,'model_field_id' => 245,'type' => 10,'option_value' => '20','option_label' => '扩展',],
             ['model_id' => 14,'model_field_id' => 246,'type' => 10,'option_value' => '10','option_label' => '开启',],
             ['model_id' => 14,'model_field_id' => 246,'type' => 10,'option_value' => '20','option_label' => '禁用',],
+
         ];
         $this->table('field_option')->insert($data)->save();
 
@@ -801,93 +815,96 @@ class VuecmfDatabase extends Migrator
 
         //model_form 模型表单表
         $data = [
-            ['id' => 1,'model_id' => 1,'model_field_id' => 2,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 1,'status' => 10,],
-            ['id' => 2,'model_id' => 1,'model_field_id' => 3,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 2,'status' => 10,],
-            ['id' => 3,'model_id' => 1,'model_field_id' => 4,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 3,'status' => 10,],
-            ['id' => 4,'model_id' => 1,'model_field_id' => 5,'type' => 'select','default_value' => 'template/content/List','is_disabled' => 20,'sort_num' => 4,'status' => 10,],
-            ['id' => 5,'model_id' => 1,'model_field_id' => 6,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 5,'status' => 10,],
-            ['id' => 6,'model_id' => 1,'model_field_id' => 7,'type' => 'select_mul','default_value' => '','is_disabled' => 20,'sort_num' => 6,'status' => 10,],
-            ['id' => 7,'model_id' => 1,'model_field_id' => 9,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 7,'status' => 10,],
-            ['id' => 8,'model_id' => 1,'model_field_id' => 10,'type' => 'textarea','default_value' => '','is_disabled' => 20,'sort_num' => 8,'status' => 10,],
-            ['id' => 9,'model_id' => 1,'model_field_id' => 11,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 9,'status' => 10,],
+            ['id' => 1,'model_id' => 1,'model_field_id' => 2,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 1,'status' => 10,],
+            ['id' => 2,'model_id' => 1,'model_field_id' => 3,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 2,'status' => 10,],
+            ['id' => 3,'model_id' => 1,'model_field_id' => 4,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 3,'status' => 10,],
+            ['id' => 4,'model_id' => 1,'model_field_id' => 5,'type' => 'select','default_value' => 'template/content/List','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 4,'status' => 10,],
+            ['id' => 5,'model_id' => 1,'model_field_id' => 6,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 5,'status' => 10,],
+            ['id' => 6,'model_id' => 1,'model_field_id' => 7,'type' => 'select_mul','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 6,'status' => 10,],
+            ['id' => 7,'model_id' => 1,'model_field_id' => 9,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 7,'status' => 10,],
+            ['id' => 8,'model_id' => 1,'model_field_id' => 10,'type' => 'textarea','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 8,'status' => 10,],
+            ['id' => 9,'model_id' => 1,'model_field_id' => 11,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 9,'status' => 10,],
             ['id' => 20,'model_id' => 2,'model_field_id' => 23,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 20,'status' => 10,],
-            ['id' => 21,'model_id' => 2,'model_field_id' => 21,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 21,'status' => 10,],
-            ['id' => 22,'model_id' => 2,'model_field_id' => 22,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 22,'status' => 10,],
-            ['id' => 23,'model_id' => 2,'model_field_id' => 24,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 23,'status' => 10,],
-            ['id' => 24,'model_id' => 2,'model_field_id' => 25,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 24,'status' => 10,],
-            ['id' => 40,'model_id' => 3,'model_field_id' => 41,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 40,'status' => 10,],
-            ['id' => 41,'model_id' => 3,'model_field_id' => 42,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 41,'status' => 10,],
+            ['id' => 21,'model_id' => 2,'model_field_id' => 21,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 21,'status' => 10,],
+            ['id' => 22,'model_id' => 2,'model_field_id' => 22,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 22,'status' => 10,],
+            ['id' => 23,'model_id' => 2,'model_field_id' => 24,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 23,'status' => 10,],
+            ['id' => 24,'model_id' => 2,'model_field_id' => 25,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 24,'status' => 10,],
+            ['id' => 40,'model_id' => 3,'model_field_id' => 41,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 40,'status' => 10,],
+            ['id' => 41,'model_id' => 3,'model_field_id' => 42,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 41,'status' => 10,],
             ['id' => 42,'model_id' => 3,'model_field_id' => 43,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 42,'status' => 10,],
-            ['id' => 43,'model_id' => 3,'model_field_id' => 44,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 43,'status' => 10,],
-            ['id' => 44,'model_id' => 3,'model_field_id' => 45,'type' => 'input_number','default_value' => '','is_disabled' => 20,'sort_num' => 44,'status' => 10,],
-            ['id' => 45,'model_id' => 3,'model_field_id' => 46,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'sort_num' => 45,'status' => 10,],
-            ['id' => 46,'model_id' => 3,'model_field_id' => 47,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 46,'status' => 10,],
-            ['id' => 47,'model_id' => 3,'model_field_id' => 49,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 47,'status' => 10,],
-            ['id' => 48,'model_id' => 3,'model_field_id' => 48,'type' => 'textarea','default_value' => '','is_disabled' => 20,'sort_num' => 48,'status' => 10,],
-            ['id' => 49,'model_id' => 3,'model_field_id' => 50,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 49,'status' => 10,],
-            ['id' => 50,'model_id' => 3,'model_field_id' => 51,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 50,'status' => 10,],
-            ['id' => 51,'model_id' => 3,'model_field_id' => 52,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 51,'status' => 10,],
-            ['id' => 52,'model_id' => 3,'model_field_id' => 53,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 52,'status' => 10,],
-            ['id' => 53,'model_id' => 3,'model_field_id' => 54,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 53,'status' => 10,],
-            ['id' => 54,'model_id' => 3,'model_field_id' => 55,'type' => 'input_number','default_value' => '150','is_disabled' => 20,'sort_num' => 54,'status' => 10,],
-            ['id' => 55,'model_id' => 3,'model_field_id' => 56,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 55,'status' => 10,],
-            ['id' => 56,'model_id' => 3,'model_field_id' => 57,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'sort_num' => 56,'status' => 10,],
-            ['id' => 57,'model_id' => 3,'model_field_id' => 58,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 57,'status' => 10,],
+            ['id' => 43,'model_id' => 3,'model_field_id' => 44,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 43,'status' => 10,],
+            ['id' => 44,'model_id' => 3,'model_field_id' => 45,'type' => 'input_number','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 44,'status' => 10,],
+            ['id' => 45,'model_id' => 3,'model_field_id' => 46,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 45,'status' => 10,],
+            ['id' => 46,'model_id' => 3,'model_field_id' => 47,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 46,'status' => 10,],
+            ['id' => 47,'model_id' => 3,'model_field_id' => 49,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 47,'status' => 10,],
+            ['id' => 48,'model_id' => 3,'model_field_id' => 48,'type' => 'textarea','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 48,'status' => 10,],
+            ['id' => 49,'model_id' => 3,'model_field_id' => 50,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 49,'status' => 10,],
+            ['id' => 50,'model_id' => 3,'model_field_id' => 51,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 50,'status' => 10,],
+            ['id' => 51,'model_id' => 3,'model_field_id' => 52,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 51,'status' => 10,],
+            ['id' => 52,'model_id' => 3,'model_field_id' => 53,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 52,'status' => 10,],
+            ['id' => 53,'model_id' => 3,'model_field_id' => 54,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 53,'status' => 10,],
+            ['id' => 54,'model_id' => 3,'model_field_id' => 55,'type' => 'input_number','default_value' => '150','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 54,'status' => 10,],
+            ['id' => 55,'model_id' => 3,'model_field_id' => 56,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 55,'status' => 10,],
+            ['id' => 56,'model_id' => 3,'model_field_id' => 57,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 56,'status' => 10,],
+            ['id' => 57,'model_id' => 3,'model_field_id' => 58,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 57,'status' => 10,],
             ['id' => 80,'model_id' => 4,'model_field_id' => 62,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 80,'status' => 10,],
             ['id' => 81,'model_id' => 4,'model_field_id' => 63,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 81,'status' => 10,],
-            ['id' => 82,'model_id' => 4,'model_field_id' => 64,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 82,'status' => 10,],
-            ['id' => 83,'model_id' => 4,'model_field_id' => 65,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 83,'status' => 10,],
-            ['id' => 84,'model_id' => 4,'model_field_id' => 66,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 84,'status' => 10,],
+            ['id' => 82,'model_id' => 4,'model_field_id' => 64,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 82,'status' => 10,],
+            ['id' => 83,'model_id' => 4,'model_field_id' => 65,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 83,'status' => 10,],
+            ['id' => 84,'model_id' => 4,'model_field_id' => 66,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 84,'status' => 10,],
             ['id' => 100,'model_id' => 5,'model_field_id' => 81,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 100,'status' => 10,],
-            ['id' => 101,'model_id' => 5,'model_field_id' => 82,'type' => 'select_mul','default_value' => '','is_disabled' => 20,'sort_num' => 101,'status' => 10,],
-            ['id' => 102,'model_id' => 5,'model_field_id' => 83,'type' => 'select','default_value' => 'NORMAL','is_disabled' => 20,'sort_num' => 102,'status' => 10,],
-            ['id' => 103,'model_id' => 5,'model_field_id' => 84,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 103,'status' => 10,],
+            ['id' => 101,'model_id' => 5,'model_field_id' => 82,'type' => 'select_mul','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 101,'status' => 10,],
+            ['id' => 102,'model_id' => 5,'model_field_id' => 83,'type' => 'select','default_value' => 'NORMAL','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 102,'status' => 10,],
+            ['id' => 103,'model_id' => 5,'model_field_id' => 84,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 103,'status' => 10,],
             ['id' => 120,'model_id' => 6,'model_field_id' => 101,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 120,'status' => 10,],
             ['id' => 121,'model_id' => 6,'model_field_id' => 102,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 121,'status' => 10,],
-            ['id' => 122,'model_id' => 6,'model_field_id' => 103,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 122,'status' => 10,],
-            ['id' => 123,'model_id' => 6,'model_field_id' => 104,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 123,'status' => 10,],
-            ['id' => 124,'model_id' => 6,'model_field_id' => 105,'type' => 'select_mul','default_value' => '','is_disabled' => 20,'sort_num' => 124,'status' => 10,],
-            ['id' => 125,'model_id' => 6,'model_field_id' => 106,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 125,'status' => 10,],
-            ['id' => 126,'model_id' => 6,'model_field_id' => 107,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 126,'status' => 10,],
-            ['id' => 140,'model_id' => 7,'model_field_id' => 121,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 140,'status' => 10,],
-            ['id' => 141,'model_id' => 7,'model_field_id' => 122,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 141,'status' => 10,],
-            ['id' => 142,'model_id' => 7,'model_field_id' => 123,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 142,'status' => 10,],
-            ['id' => 143,'model_id' => 7,'model_field_id' => 124,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 143,'status' => 10,],
-            ['id' => 144,'model_id' => 7,'model_field_id' => 127,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 144,'status' => 10,],
-            ['id' => 145,'model_id' => 7,'model_field_id' => 129,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'sort_num' => 145,'status' => 10,],
-            ['id' => 146,'model_id' => 7,'model_field_id' => 130,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 146,'status' => 10,],
-            ['id' => 160,'model_id' => 8,'model_field_id' => 141,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 160,'status' => 10,],
-            ['id' => 161,'model_id' => 8,'model_field_id' => 142,'type' => 'password','default_value' => '','is_disabled' => 20,'sort_num' => 161,'status' => 10,],
-            ['id' => 162,'model_id' => 8,'model_field_id' => 143,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 162,'status' => 10,],
-            ['id' => 163,'model_id' => 8,'model_field_id' => 144,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 163,'status' => 10,],
-            ['id' => 164,'model_id' => 8,'model_field_id' => 145,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 164,'status' => 10,],
+            ['id' => 122,'model_id' => 6,'model_field_id' => 103,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 122,'status' => 10,],
+            ['id' => 123,'model_id' => 6,'model_field_id' => 104,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 123,'status' => 10,],
+            ['id' => 124,'model_id' => 6,'model_field_id' => 105,'type' => 'select_mul','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 124,'status' => 10,],
+            ['id' => 125,'model_id' => 6,'model_field_id' => 106,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 125,'status' => 10,],
+            ['id' => 126,'model_id' => 6,'model_field_id' => 107,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 126,'status' => 10,],
+            ['id' => 140,'model_id' => 7,'model_field_id' => 121,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 140,'status' => 10,],
+            ['id' => 141,'model_id' => 7,'model_field_id' => 122,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 141,'status' => 10,],
+            ['id' => 142,'model_id' => 7,'model_field_id' => 123,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 142,'status' => 10,],
+            ['id' => 143,'model_id' => 7,'model_field_id' => 124,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 143,'status' => 10,],
+            ['id' => 144,'model_id' => 7,'model_field_id' => 127,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 144,'status' => 10,],
+            ['id' => 145,'model_id' => 7,'model_field_id' => 129,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 145,'status' => 10,],
+            ['id' => 146,'model_id' => 7,'model_field_id' => 130,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 146,'status' => 10,],
+            ['id' => 160,'model_id' => 8,'model_field_id' => 141,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '用户名长度为4到32个字符','is_edit'=> 20,'sort_num' => 160,'status' => 10,],
+            ['id' => 161,'model_id' => 8,'model_field_id' => 142,'type' => 'password','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 161,'status' => 10,],
+            ['id' => 162,'model_id' => 8,'model_field_id' => 143,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 162,'status' => 10,],
+            ['id' => 163,'model_id' => 8,'model_field_id' => 144,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 163,'status' => 10,],
+            ['id' => 164,'model_id' => 8,'model_field_id' => 145,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 164,'status' => 10,],
             ['id' => 180,'model_id' => 9,'model_field_id' => 161,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 180,'status' => 10,],
-            ['id' => 181,'model_id' => 9,'model_field_id' => 162,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 181,'status' => 10,],
-            ['id' => 182,'model_id' => 9,'model_field_id' => 163,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 182,'status' => 10,],
-            ['id' => 183,'model_id' => 9,'model_field_id' => 164,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 183,'status' => 10,],
-            ['id' => 184,'model_id' => 9,'model_field_id' => 165,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 184,'status' => 10,],
-            ['id' => 185,'model_id' => 9,'model_field_id' => 166,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'sort_num' => 185,'status' => 10,],
-            ['id' => 186,'model_id' => 9,'model_field_id' => 167,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 186,'status' => 10,],
+            ['id' => 181,'model_id' => 9,'model_field_id' => 162,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 181,'status' => 10,],
+            ['id' => 182,'model_id' => 9,'model_field_id' => 163,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 182,'status' => 10,],
+            ['id' => 183,'model_id' => 9,'model_field_id' => 164,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 183,'status' => 10,],
+            ['id' => 184,'model_id' => 9,'model_field_id' => 165,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 184,'status' => 10,],
+            ['id' => 185,'model_id' => 9,'model_field_id' => 166,'type' => 'input_number','default_value' => '0','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 185,'status' => 10,],
+            ['id' => 186,'model_id' => 9,'model_field_id' => 167,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 186,'status' => 10,],
             ['id' => 200,'model_id' => 10,'model_field_id' => 181,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 200,'status' => 10,],
             ['id' => 201,'model_id' => 10,'model_field_id' => 182,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 201,'status' => 10,],
-            ['id' => 202,'model_id' => 10,'model_field_id' => 183,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 202,'status' => 10,],
-            ['id' => 203,'model_id' => 10,'model_field_id' => 184,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 203,'status' => 10,],
-            ['id' => 204,'model_id' => 10,'model_field_id' => 185,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 204,'status' => 10,],
-            ['id' => 205,'model_id' => 10,'model_field_id' => 186,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 205,'status' => 10,],
-            ['id' => 220,'model_id' => 11,'model_field_id' => 201,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 220,'status' => 10,],
-            ['id' => 221,'model_id' => 11,'model_field_id' => 203,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 221,'status' => 10,],
-            ['id' => 222,'model_id' => 11,'model_field_id' => 205,'type' => 'textarea','default_value' => '','is_disabled' => 20,'sort_num' => 222,'status' => 10,],
-            ['id' => 223,'model_id' => 11,'model_field_id' => 206,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 223,'status' => 10,],
+            ['id' => 202,'model_id' => 10,'model_field_id' => 183,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 202,'status' => 10,],
+            ['id' => 203,'model_id' => 10,'model_field_id' => 184,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 203,'status' => 10,],
+            ['id' => 204,'model_id' => 10,'model_field_id' => 185,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 204,'status' => 10,],
+            ['id' => 205,'model_id' => 10,'model_field_id' => 186,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 205,'status' => 10,],
+            ['id' => 220,'model_id' => 11,'model_field_id' => 201,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 220,'status' => 10,],
+            ['id' => 221,'model_id' => 11,'model_field_id' => 203,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 221,'status' => 10,],
+            ['id' => 222,'model_id' => 11,'model_field_id' => 205,'type' => 'textarea','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 222,'status' => 10,],
+            ['id' => 223,'model_id' => 11,'model_field_id' => 206,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 223,'status' => 10,],
             ['id' => 240,'model_id' => 12,'model_field_id' => 221,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 240,'status' => 10,],
             ['id' => 241,'model_id' => 12,'model_field_id' => 222,'type' => 'select','default_value' => '','is_disabled' => 10,'sort_num' => 241,'status' => 10,],
-            ['id' => 242,'model_id' => 12,'model_field_id' => 223,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 242,'status' => 10,],
-            ['id' => 243,'model_id' => 12,'model_field_id' => 224,'type' => 'select','default_value' => '','is_disabled' => 20,'sort_num' => 243,'status' => 10,],
-            ['id' => 244,'model_id' => 12,'model_field_id' => 225,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 244,'status' => 10,],
-            ['id' => 260,'model_id' => 14,'model_field_id' => 241,'type' => 'text','default_value' => '','is_disabled' => 20,'sort_num' => 260,'status' => 10,],
-            ['id' => 261,'model_id' => 14,'model_field_id' => 242,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 261,'status' => 10,],
-            ['id' => 262,'model_id' => 14,'model_field_id' => 243,'type' => 'radio','default_value' => '10','is_disabled' => 20,'sort_num' => 262,'status' => 10,],
-            ['id' => 263,'model_id' => 14,'model_field_id' => 244,'type' => 'textarea','default_value' => '','is_disabled' => 20,'sort_num' => 263,'status' => 10,],
-            ['id' => 264,'model_id' => 14,'model_field_id' => 245,'type' => 'radio','default_value' => '20','is_disabled' => 20,'sort_num' => 264,'status' => 10,],
+            ['id' => 242,'model_id' => 12,'model_field_id' => 223,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 242,'status' => 10,],
+            ['id' => 243,'model_id' => 12,'model_field_id' => 224,'type' => 'select','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 243,'status' => 10,],
+            ['id' => 244,'model_id' => 12,'model_field_id' => 225,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 244,'status' => 10,],
+            ['id' => 260,'model_id' => 14,'model_field_id' => 241,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 260,'status' => 10,],
+            ['id' => 261,'model_id' => 14,'model_field_id' => 242,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 261,'status' => 10,],
+            ['id' => 262,'model_id' => 14,'model_field_id' => 243,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 262,'status' => 10,],
+            ['id' => 263,'model_id' => 14,'model_field_id' => 244,'type' => 'textarea','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 263,'status' => 10,],
+            ['id' => 264,'model_id' => 14,'model_field_id' => 245,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 264,'status' => 10,],
+            ['id' => 265,'model_id' => 3,'model_field_id' => 247,'type' => 'radio','default_value' => '20','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 55,'status' => 10,],
+            ['id' => 273,'model_id' => 9,'model_field_id' => 261,'type' => 'text','default_value' => '','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 185,'status' => 10,],
+            ['id' => 274,'model_id' => 9,'model_field_id' => 262,'type' => 'radio','default_value' => '10','is_disabled' => 20,'placeholder' => '','is_edit'=> 10,'sort_num' => 186,'status' => 10,],
         ];
         $this->table('model_form')->insert($data)->save();
 
@@ -973,6 +990,20 @@ class VuecmfDatabase extends Migrator
         ];
         $this->table('model_form_linkage')->insert($data)->save();
 
+        //设置起始值
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'app_config AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_config AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_field AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'field_option AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_action AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_relation AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_index AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'menu AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'admin AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_form AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_form_rules AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'roles AUTO_INCREMENT=1000;');
+        $this->execute('ALTER TABLE '.config('database.connections.mysql.prefix').'model_form_linkage AUTO_INCREMENT=1000;');
     }
 
     public function down()

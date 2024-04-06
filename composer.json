@@ -10,11 +10,11 @@
     "homepage": "http://www.vuecmf.com/",
     "license": "Apache-2.0",
     "require": {
-        "php": ">=7.4.0",
-        "topthink/framework": "^6.1.0",
-        "topthink/think-orm": "^2.0",
-        "topthink/think-filesystem": "^1.0",
-        "vuecmf/framework": "^2.5"
+        "php": ">=8.0.0",
+        "topthink/framework": "^8.0",
+        "topthink/think-orm": "^3.0",
+        "topthink/think-filesystem": "^2.0",
+        "vuecmf/framework": "^3.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
