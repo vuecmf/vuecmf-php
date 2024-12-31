@@ -14,7 +14,7 @@
         "topthink/framework": "^8.0",
         "topthink/think-orm": "^3.0",
         "topthink/think-filesystem": "^2.0",
-        "vuecmf/framework": "^3.0"
+        "vuecmf/framework": "^3.0.1"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
