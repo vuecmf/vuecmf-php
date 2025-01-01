@@ -79,4 +79,8 @@ composer update vuecmf/framework
 服务器必须配置伪静态，前端才可正常请求后端接口
 配置示例见[使用手册](http://www.vuecmf.com/guide/#php%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC-1/)
 
-
+## Docker部署
+若没有安装docker，则必须先安装docker，然后在项目根目录下执行如下命令即可快速部署项目
+```
+docker compose up -d
+```
